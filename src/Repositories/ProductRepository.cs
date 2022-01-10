@@ -31,7 +31,7 @@ namespace server.Repositories
             return Task.CompletedTask;
         }
 
-        public Task StoreAll(IList<Product> products)
+        public Task StoreAll(IEnumerable<Product> products)
         {
             data = new List<Product>(products);
             return Task.CompletedTask;
@@ -60,7 +60,7 @@ namespace server.Repositories
         {
             if (data == null || data.Count == 0)
             {
-                data = new List<Product>(new[]
+                StoreAll(new[]
                     {
                         new Product
                         {
@@ -98,7 +98,7 @@ namespace server.Repositories
                             Category = Category.Clothing,
                             Price = 24.99M
                         }
-                    });
+                    }).GetAwaiter().GetResult();
             }
         }
     }
